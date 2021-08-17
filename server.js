@@ -1,7 +1,7 @@
 require("dotenv").config()
 const express = require("express");
 const mongoose = require("mongoose");
-
+const routes = require("./routes")
 const PORT = process.env.PORT || 3000
 
 const app = express();
@@ -13,11 +13,11 @@ app.use(express.static("public"));
 console.log(process.env.MONGODB_URI)
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true
 });
 
-// routes
-// app.use(require("./routes/api"));
+app.use(routes)
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
